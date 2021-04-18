@@ -2,6 +2,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const paths = require('./paths');
+const webpack = require('webpack')
 
 module.exports = {
     entry: paths.src + '/index.js',
@@ -24,9 +25,18 @@ module.exports = {
             ],
         }),
         new HtmlWebpackPlugin({
-            title: 'webpack start project',
+            title: 'Генератор таблицы',
             template: paths.src + '/template.html',
             filename: 'index.html',
+            minify: {
+                removeRedundantAttributes: false,
+                collapseWhitespace: true,
+                keepClosingSlash: true,
+                removeComments: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                useShortDoctype: true
+            }
         })
     ],
     module: {
@@ -44,7 +54,10 @@ module.exports = {
             },
             {
                 test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-                type: 'asset/resource'
+                type: 'asset/resource',
+                generator: {
+                    filename: 'styles/images/[hash][ext]'
+                },
             },
             {
                 test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,

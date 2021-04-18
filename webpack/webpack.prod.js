@@ -22,6 +22,7 @@ module.exports = merge(common, {
                     {
                         loader: 'css-loader',
                         options: {
+                            publicPath: '../',
                             importLoaders: 2,
                             sourceMap: false,
                             modules: true,
